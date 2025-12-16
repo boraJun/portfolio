@@ -1,117 +1,638 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bora Jeon | Technical Security Consultant</title>
-  <meta name="description" content="전보라 | 기술 보안 컨설턴트 포트폴리오 – 웹·서버·네트워크 보안, 모의해킹, 시큐어코딩" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="전보라(Bora Jeon) · 기술 보안 컨설턴트 포트폴리오" />
+  <title>전보라 | Portfolio</title>
   <style>
-    body { margin:0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background:#0f172a; color:#e5e7eb; line-height:1.6; }
-    a { color:#38bdf8; text-decoration:none; }
-    header { padding:80px 20px; text-align:center; background:linear-gradient(135deg,#020617,#020617 60%,#0ea5e9); }
-    header h1 { font-size:3rem; margin-bottom:10px; }
-    header p { font-size:1.1rem; color:#cbd5f5; }
-    section { max-width:1000px; margin:0 auto; padding:60px 20px; }
-    h2 { font-size:2rem; margin-bottom:20px; border-left:4px solid #38bdf8; padding-left:12px; }
-    ul { padding-left:20px; }
-    .grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(250px,1fr)); gap:20px; }
-    .card { background:#020617; border:1px solid #1e293b; border-radius:16px; padding:24px; box-shadow:0 10px 30px rgba(0,0,0,.3); }
-    footer { text-align:center; padding:40px 20px; border-top:1px solid #1e293b; color:#94a3b8; }
+    :root{
+      --bg:#0b1220;
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.68);
+      --line:rgba(255,255,255,.12);
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius:18px;
+      --max:1100px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", Arial, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--text);
+      background:
+        radial-gradient(900px 500px at 15% 10%, rgba(98,0,255,.22), transparent 60%),
+        radial-gradient(900px 500px at 85% 15%, rgba(0,255,255,.18), transparent 55%),
+        radial-gradient(900px 500px at 50% 90%, rgba(0,255,128,.12), transparent 60%),
+        var(--bg);
+      line-height:1.6;
+    }
+    a{color:inherit}
+    a:hover{opacity:.9}
+    .container{width:min(var(--max), calc(100% - 40px)); margin:0 auto}
+    .section{padding:56px 0}
+    .section.alt{background:linear-gradient(180deg, transparent, rgba(255,255,255,.02), transparent)}
+    .skip{position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;}
+    .skip:focus{left:20px; top:20px; width:auto; height:auto; padding:10px 12px; background:#fff; color:#000; border-radius:12px; z-index:9999;}
+
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(12px);
+      background: rgba(10,16,30,.65);
+      border-bottom:1px solid var(--line);
+    }
+    .topbar-inner{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 0}
+    .brand{display:flex; align-items:center; gap:12px}
+    .logo{font-size:22px}
+    .brand-name{font-weight:800}
+    .brand-role{font-size:13px; color:var(--muted)}
+    .nav{display:flex; gap:12px; flex-wrap:wrap; justify-content:flex-end}
+    .nav a{
+      text-decoration:none;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid transparent;
+      color:var(--muted);
+      font-size:14px;
+    }
+    .nav a:hover{border-color:var(--line); color:var(--text)}
+
+    .hero{padding:52px 0 18px}
+    .hero-inner{display:grid; grid-template-columns: 1.4fr .9fr; gap:18px; align-items:start;}
+    h1{font-size:44px; line-height:1.12; margin:0 0 14px}
+    h2{margin:0 0 14px; font-size:28px}
+    .h3{font-size:18px; margin:0 0 10px}
+    .h4{font-size:15px; margin:18px 0 8px}
+    .lead{color:var(--muted); font-size:16px; margin:0 0 18px}
+    .muted{color:var(--muted)}
+    .small{font-size:13px}
+
+    .cta{display:flex; flex-wrap:wrap; gap:10px; margin:0 0 16px}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:8px;
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:transparent;
+      color:var(--text);
+      text-decoration:none;
+      cursor:pointer;
+      user-select:none;
+    }
+    .btn:hover{transform: translateY(-1px)}
+    .btn:active{transform: translateY(0px)}
+    .btn.primary{
+      background:linear-gradient(135deg, rgba(90,160,255,.25), rgba(140,90,255,.20));
+      border-color: rgba(255,255,255,.18);
+    }
+    .btn.small{padding:8px 10px; font-size:13px}
+
+    .quickfacts{display:flex; flex-wrap:wrap; gap:8px; list-style:none; padding:0; margin:0}
+    .tag{
+      display:inline-flex;
+      padding:7px 10px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:rgba(255,255,255,.03);
+      font-size:13px;
+      color:var(--muted);
+    }
+
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.035));
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding:18px 18px;
+    }
+    .card.mini{padding:14px 14px}
+    .cards{list-style:none; padding:0; margin:0; display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
+
+    .grid{display:grid; gap:14px}
+    .grid.two{grid-template-columns:repeat(2,1fr)}
+    .grid.three{grid-template-columns:repeat(3,1fr)}
+
+    .row{display:flex; align-items:baseline; justify-content:space-between; gap:12px; flex-wrap:wrap}
+    .text{margin:10px 0 0}
+    .list{margin:10px 0 0; padding-left:18px}
+    .list.compact{margin-top:8px}
+    .list li{margin:6px 0}
+    .divider{height:1px; background:var(--line); margin:14px 0}
+
+    .timeline{display:grid; gap:12px; position:relative; padding-left:18px}
+    .timeline:before{content:""; position:absolute; left:8px; top:8px; bottom:8px; width:2px; background:var(--line);}
+    .timeline-item{position:relative}
+    .timeline-dot{position:absolute; left:1px; top:22px; width:14px; height:14px; border-radius:999px; border:2px solid rgba(255,255,255,.45); background: rgba(0,0,0,.2);}
+    .timeline-content{margin-left:18px}
+
+    .footer{padding:26px 0 40px; border-top:1px solid var(--line); background:rgba(0,0,0,.12)}
+    .footer-inner{display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap}
+
+    @media (max-width: 980px){
+      .hero-inner{grid-template-columns:1fr}
+      h1{font-size:36px}
+      .cards{grid-template-columns:repeat(2,1fr)}
+      .grid.three{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width: 640px){
+      .nav{display:none}
+      .grid.two, .grid.three{grid-template-columns:1fr}
+      .cards{grid-template-columns:1fr}
+      h1{font-size:32px}
+    }
+  
+    /* Projects readability upgrade */
+    .projects{display:grid; gap:14px}
+    .project-top{display:flex; align-items:flex-start; justify-content:space-between; gap:14px; flex-wrap:wrap}
+    .project-title{margin:0}
+    .project-sub{margin:8px 0 0; color:var(--muted)}
+    .project-badges{display:flex; gap:8px; flex-wrap:wrap}
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.03);
+      color:var(--muted);
+      font-size:13px;
+      white-space:nowrap;
+    }
+    .badge.accent{
+      background:linear-gradient(135deg, rgba(90,160,255,.18), rgba(140,90,255,.14));
+      border-color: rgba(255,255,255,.18);
+      color: rgba(255,255,255,.85);
+    }
+    .project-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-top:14px}
+    .panel{
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      padding:16px 16px;
+    }
+    .panel.span-2{grid-column: 1 / -1}
+    @media (max-width: 980px){
+      .project-grid{grid-template-columns:1fr}
+      .panel.span-2{grid-column:auto}
+    }
+
   </style>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%94%90%3C/text%3E%3C/svg%3E">
 </head>
 <body>
+  <a class="skip" href="#main">본문 바로가기</a>
 
-<header>
-  <h1>전보라 · Bora Jeon</h1>
-  <p>Technical Security Consultant</p>
-  <p>웹 · 서버 · 네트워크 전반을 이해하는 실무형 보안 컨설턴트</p>
-</header>
-
-<section>
-  <h2>About Me</h2>
-  <p>
-    약 5년간 미디어 전시 업체의 개발자로 근무하며 실제 서비스 환경을 경험했고, 이후 정보보안 및 웹 서버 개발 과정을 통해
-    <strong>모의해킹, 시큐어코딩, 인프라 보안</strong>을 수행했습니다.
-    단순 취약점 나열이 아닌, <strong>개발 구조와 운영 환경을 이해한 현실적인 보안 개선</strong>을 지향합니다.
-  </p>
-</section>
-
-<section>
-  <h2>Core Competencies</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>Web Security</h3>
-      <ul>
-        <li>OWASP TOP 10 기반 취약점 진단</li>
-        <li>SQL Injection, XSS, CSRF, File Upload</li>
-        <li>시큐어 코딩 및 코드 레벨 개선</li>
-      </ul>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand">
+        <span class="logo" aria-hidden="true">🔐</span>
+        <div>
+          <div class="brand-name">전보라 (Bora Jeon)</div>
+          <div class="brand-role">기술 보안 컨설턴트 지망 · 보안/인프라/웹</div>
+        </div>
+      </div>
+      <nav class="nav" aria-label="주요 섹션">
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#career">Career</a>
+        <a href="#education">Education</a>
+        <a href="#certs">Certs</a>
+        <a href="#contact">Contact</a>
+      </nav>
     </div>
-    <div class="card">
-      <h3>Server & OS</h3>
-      <ul>
-        <li>Linux(Rocky/CentOS), Windows Server</li>
-        <li>Apache, Tomcat, 계정·권한 관리</li>
-        <li>로그 분석 및 접근 통제</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3>Network & Infra</h3>
-      <ul>
-        <li>Subnetting, VLSM, VLAN, NAT</li>
-        <li>RIP / EIGRP / OSPF 라우팅</li>
-        <li>GNS3 · Packet Tracer 실습</li>
-      </ul>
-    </div>
-  </div>
-</section>
+  </header>
 
-<section>
-  <h2>Projects</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>기업 맞춤형 웹 방화벽 구축</h3>
-      <p>
-        기업 환경을 가정한 웹 서비스에 대해 취약점 진단 → 공격 시나리오 구성 →
-        보안 권고사항 도출 → 시큐어코딩 적용까지 전 과정 수행
-      </p>
-    </div>
-    <div class="card">
-      <h3>가상 대학 인프라 보안 프로젝트</h3>
-      <p>
-        서버, 네트워크를 포함한 인프라 설계 및 보안 설정 수행
-      </p>
-    </div>
-    <div class="card">
-      <h3>Java 기반 웹 서비스 개발</h3>
-      <p>
-         청년들을 위한 사회 연결 프로그램<br>"틈새 빛" 사이트 제작
-      </p>
-    </div>
-  </div>
-</section>
+  <main id="main">
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="hero-left">
+          <h1>
+            <span class="muted">Security × Infra × Web</span><br/>
+            전보라
+          </h1>
+          <p class="lead">
+            개발자로서 근무 경험(Unity)과 정보보안·웹서버 구축 과정을 바탕으로,
+            <strong>고객 환경에 맞는 “현실적인 개선안”</strong>을 제시하는 기술 보안 컨설턴트를 목표로 합니다.
+          </p>
 
-<section>
-  <h2>Experience</h2>
-  <ul>
-    <li><strong>㈜디스트릭트 코리아</strong> (2019.10 ~ 2025.01) – Unity 기반 체험형 미디어 전시 콘텐츠 개발</li>
-    <li><strong>㈜솔트웍스</strong> (2018.06 ~ 2019.09) – VR 안전 교육 콘텐츠 및 센서 연동 시스템 개발</li>
-  </ul>
-</section>
+          <div class="cta">
+            <a class="btn primary" href="#projects">프로젝트 보기</a>
+            <a class="btn" href="https://github.com/team3-rebooting/Reb_frontend.git" target="_blank" rel="noopener">GitHub - Reb_frontend</a>
+            <a class="btn" href="https://github.com/team3-rebooting/Reb_back.git" target="_blank" rel="noopener">GitHub - Reb_backend</a>
+          </div>
 
-<section>
-  <h2>Links</h2>
-  <ul>
-    <li>GitHub: <a href="https://github.com/team3-rebooting/Reb_back.git" target="_blank">github.com/boraJun/Reb_back.git</a></li>
-    <li>GitHub: <a href="https://github.com/team3-rebooting/Reb_frontend.git" target="_blank">github.com/boraJun/Reb_frontend.git</a></li>
-    <li>Blog: <a href="https://velog.io/@boradori/posts" target="_blank">velog.io/@boradori</a></li>
-    <li>Email: qhfk7751@naver.com</li>
-  </ul>
-</section>
+          <ul class="quickfacts">
+            <li><span class="tag">OWASP Top 10</span></li>
+            <li><span class="tag">Burp Suite</span></li>
+            <li><span class="tag">Rocky Linux / Windows Server</span></li>
+            <li><span class="tag">VLAN · NAT · OSPF</span></li>
+          </ul>
+        </div>
 
-<footer>
-  © 2025 Bora Jeon · Technical Security Consultant
-</footer>
+        <aside class="hero-right card">
+          <h2 class="h3">요약</h2>
+          <ul class="list compact">
+            <li>취약점 진단 및 보안 권고안 도출</li>
+            <li>팀장/PM 경험(일정·인력·산출물/WBS 관리)</li>
+            <li>현장형 개발 경험(센서·하드웨어 연동/전시 운영)</li>
+          </ul>
+          <div class="divider"></div>
+        </aside>
+      </div>
+    </section>
 
+    <section id="skills" class="section alt">
+      <div class="container">
+        <div class="row">
+          <h2>Skills</h2>
+        </div>
+
+        <div class="grid three">
+          <article class="card">
+            <h3>네트워크</h3>
+            <ul class="list">
+              <li>서브넷팅, VLSM</li>
+              <li>라우팅(RIP/EIGRP/OSPF)</li>
+              <li>VLAN/DHCP/NAT 설계</li>
+              <li>Packet Tracer/GNS3</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3>보안 진단</h3>
+            <ul class="list">
+              <li>OWASP Top 10 기반 취약점 진단</li>
+              <li>SQLi/XSS/File Upload 등</li>
+              <li>Burp Suite 활용(재현/변조)</li>
+              <li>보안 권고안 작성</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3>서버/운영</h3>
+            <ul class="list">
+              <li>Rocky/CentOS, Windows Server</li>
+              <li>Apache/Tomcat</li>
+              <li>systemctl/iptables 기초</li>
+              <li>계정·권한·로그 분석</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3>Backend</h3>
+            <ul class="list">
+              <li>Servlet/JSP 기반 MVC2</li>
+              <li>MyBatis ORM</li>
+              <li>Oracle/MySQL 연동</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3>Frontend</h3>
+            <ul class="list">
+              <li>HTML/CSS 퍼블리싱</li>
+              <li>JavaScript(Fetch/DOM)</li>
+              <li>JSON 데이터 처리</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3>Dev Experience</h3>
+            <ul class="list">
+              <li>Unity(C#)</li>
+              <li>센서/하드웨어 연동</li>
+              <li>현장 이슈 대응/운영</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    
+    
+    <section id="projects" class="section">
+      <div class="container">
+        <div class="row">
+          <h2>Projects</h2>
+        </div>
+
+        <div class="projects">
+          <article class="project card">
+            <div class="project-top">
+              <div>
+                <h3 class="project-title">개인 프로젝트 · 모의해킹 결과 보고서</h3>
+                <p class="project-sub">OWASP TOP 10 기반 웹 취약점 진단을 단독 수행한 모의해킹 프로젝트</p>
+              </div>
+              <div class="project-badges">
+                <span class="badge">2025.11.18 ~ 2025.11.24</span>
+                <span class="badge">1명</span>
+              </div>
+            </div>
+
+            <div class="project-grid">
+              <section class="panel">
+                <h4 class="h4">프로젝트 개요</h4>
+                <p class="text">
+                  VMWare 환경에 구축한 Linux 웹 서버(bee-box/bWAPP)를 대상으로 모의해킹을 수행하고,
+                  진단 결과를 보고서 형태로 정리한 프로젝트입니다. 정보 수집부터 공격 재현, 위험 분석,
+                  보안 권고사항 도출까지 전 과정을 단독으로 수행했습니다.
+                </p>
+              </section>
+
+              <section class="panel">
+                <h4 class="h4">환경 및 도구</h4>
+                <ul class="list">
+                  <li><strong>가상화/구성</strong> : VMWare Workstation, GNS3</li>
+                  <li><strong>공격 환경</strong> : Kali Linux</li>
+                  <li><strong>도구</strong> : nmap, Burp Suite, Metasploit</li>
+                  <li><strong>대상</strong> : bee-box(bWAPP)</li>
+                </ul>
+              </section>
+
+              <section class="panel span-2">
+                <h4 class="h4">수행 내용</h4>
+                <ul class="list">
+                  <li>OWASP TOP 10 기반 15개 세부 점검 항목 정의</li>
+                  <li>포트 스캔 및 서비스 정보 수집</li>
+                  <li>웹 파라미터 조작을 통한 취약점 공격 재현</li>
+                  <li>SQL Injection, XSS 등 주요 취약점 검증</li>
+                  <li>취약점 발생 원인 정리 및 위험도 분류</li>
+                  <li>운영 환경을 고려한 보안 권고사항 도출</li>
+                </ul>
+                <a class="btn primary" href="./pdf/[개인]전보라_모의해킹결과보고서_v1.0.pdf" target="_blank" rel="noopener">📄 PDF 보기</a>
+              </section>
+            </div>
+          </article>
+
+          <article class="project card">
+            <div class="project-top">
+              <div>
+                <h3 class="project-title">중간 프로젝트 · 웹 서비스 구축 (틈새빛)</h3>
+                <p class="project-sub">청년층 사회적 연결과 성장을 지원하는 커뮤니티 기반 웹 서비스 구축</p>
+              </div>
+              <div class="project-badges">
+                <span class="badge">2025.07.30 ~ 2025.08.29</span>
+                <span class="badge">3명</span>
+                <span class="badge accent">팀장</span>
+              </div>
+            </div>
+
+            <div class="project-grid">
+              <section class="panel">
+                <h4 class="h4">프로젝트 개요</h4>
+                <p class="text">
+                  청년들의 경제 활동 감소로 인한 사회적 이슈를 해소하고자,
+                  루틴 모임을 통한 사회적 연결과 수업을 통한 개인 성장을 지원하는
+                  “틈새빛” 플랫폼을 구축했습니다. 주요 기능은 수업, 루틴 모임, 소모임입니다.
+                </p>
+              </section>
+
+              <section class="panel">
+                <h4 class="h4">환경 및 기술 스택</h4>
+                <ul class="list">
+                  <li><strong>Server</strong> : Apache Tomcat</li>
+                  <li><strong>Runtime</strong> : JDK 17</li>
+                  <li><strong>Web</strong> : Servlet 4.0, JSP 2.3</li>
+                  <li><strong>DB/ORM</strong> : Oracle Database 21c, MyBatis</li>
+                </ul>
+              </section>
+
+              <section class="panel span-2">
+                <h4 class="h4">담당 역할 및 수행 내용</h4>
+                <ul class="list">
+                  <li>팀장으로서 일정/역할 분담 및 진행 상황 조율</li>
+                  <li>MVC2 패턴 기반 웹 애플리케이션 구조 설계</li>
+                  <li>수업·루틴 모임·소모임 기능 개발 및 데이터 흐름 구성</li>
+                  <li>Request/Response 기반 사용자 요청 처리</li>
+                  <li>DB 연동 기반 데이터 입력/조회/수정/삭제 기능 구현</li>
+                </ul>
+                <a class="btn primary" href="./pdf/[중프]전보라_웹개발_틈새빛_재부팅청년_최종_포트폴리오_v1.0.pdf" target="_blank" rel="noopener">📄 PDF 보기</a>
+              </section>
+            </div>
+          </article>
+
+          <article class="project card">
+            <div class="project-top">
+              <div>
+                <h3 class="project-title">세미 프로젝트 · 네트워크 인프라 구축 및 보안</h3>
+                <p class="project-sub">(가상) 대학 내부망 보안 강화 및 네트워크 설계·운영 프로젝트</p>
+              </div>
+              <div class="project-badges">
+                <span class="badge">2025.10.23 ~ 2025.10.28</span>
+                <span class="badge">6명</span>
+                <span class="badge accent">보안 정책/통합 관리</span>
+              </div>
+            </div>
+
+            <div class="project-grid">
+              <section class="panel">
+                <h4 class="h4">프로젝트 개요</h4>
+                <p class="text">
+                  (가상) 역삼공과대학교 내부망 보안을 강화하고,
+                  네트워크를 설계·구축하며 서비스를 운영하는 것을 목표로 수행한 프로젝트입니다.
+                  방화벽 설정과 서버 설정 파일을 기반으로 접근 통제 및 보안 강화를 수행했습니다.
+                </p>
+              </section>
+
+              <section class="panel">
+                <h4 class="h4">환경 및 도구</h4>
+                <ul class="list">
+                  <li>VMWare Workstation, GNS3, Packet Tracer</li>
+                  <li>Rocky Linux 8.10</li>
+                </ul>
+              </section>
+
+              <section class="panel span-2">
+                <h4 class="h4">담당 업무</h4>
+                <ul class="list">
+                  <li>보안 정책 수립 및 통합 관리</li>
+                  <li>방화벽 정책 기반 침입/비인가 접근 차단</li>
+                  <li>서버 설정 파일 기반 보안 강화 및 운영 관점 점검</li>
+                </ul>
+                <a class="btn primary" href="./pdf/[세미]전보라_인프라및보안_역삼공과대학교_SUN교사_포트폴리오_v1.0.pdf" target="_blank" rel="noopener">📄 PDF 보기</a>
+              </section>
+            </div>
+          </article>
+
+          <article class="project card">
+            <div class="project-top">
+              <div>
+                <h3 class="project-title">최종 프로젝트 · 침해사고 대응 기반 보안 체계 강화 <span class="pill" style="margin-left:8px;">대표</span></h3>
+                <p class="project-sub">정보 유출·피싱 사고 시나리오 기반 인프라 재구축 및 웹·서버·DB 보안 강화</p>
+              </div>
+              <div class="project-badges">
+                <span class="badge">2025.11.03 ~ 2025.12.12</span>
+                <span class="badge">3명</span>
+                <span class="badge accent">PM</span>
+              </div>
+            </div>
+
+            <div class="project-grid">
+              <section class="panel">
+                <h4 class="h4">프로젝트 개요</h4>
+                <p class="text">
+                  웹사이트 보안 관리 미흡으로 고객 정보 유출 및 피싱 피해가 발생한 상황을 가정하고,
+                  인프라 및 서버를 전면 재구축하여 웹 애플리케이션과 DB 서버를 포함한
+                  전반적인 정보보호 체계를 강화한 프로젝트입니다.
+                </p>
+              </section>
+
+              <section class="panel">
+                <h4 class="h4">환경 및 도구</h4>
+                <ul class="list">
+                  <li>VMWare, Packet Tracer, GNS3</li>
+                  <li>Rocky Linux, Kali Linux</li>
+                  <li>Burp Suite, nmap, Wireshark</li>
+                </ul>
+              </section>
+
+              <section class="panel span-2">
+                <h4 class="h4">담당 역할 및 수행 내용</h4>
+                <ul class="list">
+                  <li>프로젝트 총괄(PM): 범위/일정/산출물 관리</li>
+                  <li>모의해킹 수행 및 취약점 분석(웹/서버 관점)</li>
+                  <li>진단 결과 기반 시큐어 코딩 적용</li>
+                  <li>리눅스 WEB 서버 구축 및 보안 설정 강화</li>
+                  <li>웹·서버·DB 전반 보안 체계 점검/개선</li>
+                </ul>
+                <a class="btn primary" href="./pdf/[최프]전보라_웹보안_틈새걸음_포트폴리오_전보라_v1.0.pdf" target="_blank" rel="noopener">📄 PDF 보기</a>
+              </section>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+
+
+    <section id="career" class="section alt">
+      <div class="container">
+        <div class="row">
+          <h2>Career</h2>
+        </div>
+
+        <div class="timeline">
+          <article class="timeline-item">
+            <div class="timeline-dot" aria-hidden="true"></div>
+            <div class="timeline-content card">
+              <div class="row">
+                <h3>디스트릭트코리아 · DX개발팀 선임매니저</h3>
+                <span class="muted">2019.10 ~ 2025.01</span>
+              </div>
+              <ul class="list">
+                <li><strong>핵심 역량</strong> : Unity(C#) 기반 체험형 미디어/전시 콘텐츠 개발, 현장 운영 대응</li>
+                <li><strong>기술</strong> : Unity, C# Script, 센서/장비 연동(Azure Kinect, Helios2+ 등)</li>
+                <li><strong>업무</strong> : 사용자 인식/인터랙션 구현, 네트워크/FTP 기반 데이터 전송, 실시간 데이터 표출</li>
+                <li><strong>대표 프로젝트</strong> : 아르떼키즈파크 제주 - 컬러그라운드/샌드크래프트, 국립중앙박물관 - 시간을 기록하다</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="timeline-item">
+            <div class="timeline-dot" aria-hidden="true"></div>
+            <div class="timeline-content card">
+              <div class="row">
+                <h3>솔트웍스 · MR개발팀 사원</h3>
+                <span class="muted">2018.06 ~ 2019.09</span>
+              </div>
+              <ul class="list">
+                <li><strong>핵심 역량</strong> : VR 안전 교육/사고 체험 콘텐츠 개발</li>
+                <li><strong>기술</strong> : Unity, C# Script, HTC Vive Pro / Samsung Odyssey</li>
+                <li><strong>업무</strong> : Serial Port 기반 하드웨어 연동, 트래커 기반 체험 요소 구현</li>
+                <li><strong>대표 프로젝트</strong> : 안전보건공단 - VR 안전사고 체험 5종, LG디스플레이 - VR안전사고 체험 8종</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="education" class="section">
+      <div class="container">
+        <h2>Education</h2>
+        <div class="grid two">
+          <article class="card">
+            <div class="row">
+              <h3>금오공과대학교</h3>
+              <span class="muted">2013.03 ~ 2017.08</span>
+            </div>
+            <p class="muted">컴퓨터소프트웨어공학과(3.33 / 4.5) · 졸업</p>
+          </article>
+
+          <article class="card">
+            <div class="row">
+              <h3>코리아IT아카데미</h3>
+              <span class="muted">2025.06.22 ~ 2025.12.26</span>
+            </div>
+            <p class="muted">(정보보안 & 웹서버 개발) 웹 보안 솔루션 구축 융합과정 · 1033시간</p>
+            <ul class="list">
+              <li>웹/서버/네트워크 기반 보안 학습</li>
+              <li>보안장비 기반 웹 방화벽 구축 실습</li>
+              <li>팀 프로젝트 진행 및 발표</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    
+    <section id="certs" class="section alt">
+      <div class="container">
+        <h2>Certifications</h2>
+        <ul class="cards">
+          <li class="card mini"><div class="row"><strong>정보보안기사 (필기합)</strong><span class="muted">2025.03.14</span></div><div class="muted">한국인터넷진흥원</div></li>
+          <li class="card mini"><div class="row"><strong>리눅스 마스터 2급</strong><span class="muted">2025.10.03</span></div><div class="muted">한국정보통신진흥협회</div></li>
+          <li class="card mini"><div class="row"><strong>네트워크 관리사 2급</strong><span class="muted">2025.07.01</span></div><div class="muted">한국정보통신자격협회</div></li>
+          <li class="card mini"><div class="row"><strong>ADsP</strong><span class="muted">2024.09.06</span></div><div class="muted">한국데이터베이스진흥원</div></li>
+          <li class="card mini"><div class="row"><strong>정보처리기사</strong><span class="muted">2017.05.26</span></div><div class="muted">한국산업인력공단</div></li>
+          <li class="card mini"><div class="row"><strong>한국사능력검정시험 2급</strong><span class="muted">2022.02.25</span></div><div class="muted">국사편찬위원회</div></li>
+          <li class="card mini"><div class="row"><strong>1종 보통 운전면허</strong><span class="muted">2017.07.21</span></div><div class="muted">경찰청</div></li>
+        </ul>
+      </div>
+    </section>
+
+
+    <section id="contact" class="section">
+      <div class="container">
+        <h2>Contact</h2>
+        <div class="grid two">
+          <article class="card">
+            <h3>Links</h3>
+            <ul class="list">
+              <li><a href="https://velog.io/@boradori/posts" target="_blank" rel="noopener">Velog</a></li>
+              <li><a href="https://github.com/boraJun/cloneCoding.git" target="_blank" rel="noopener">GitHub</a></li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3>Email</h3>
+            <p class="text">아래 메일로 연락 주세요.</p>
+            <p><a class="btn primary" href="mailto:qhfk7751@naver.com">qhfk7751@naver.com</a></p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container footer-inner">
+        <button id="toTop" class="btn small" type="button" aria-label="맨 위로">↑ Top</button>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    (function(){
+      const btn = document.getElementById('toTop');
+      if(btn){
+        btn.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
+      }
+    })();
+  </script>
 </body>
 </html>
